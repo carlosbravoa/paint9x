@@ -29,10 +29,10 @@ description: |
   Paint9X was previously known as Paint98. It is free software under the MIT license. It is not affiliated with Microsoft.
 grade: stable
 license: MIT
-website: https://github.com/carlosbravoa/paint98
-source-code: https://github.com/carlosbravoa/paint98
-issues: https://github.com/carlosbravoa/paint98/issues
-contact: https://github.com/carlosbravoa/paint98/issues
+website: https://github.com/carlosbravoa/paint9x
+source-code: https://github.com/carlosbravoa/paint9x
+issues: https://github.com/carlosbravoa/paint9x/issues
+contact: https://github.com/carlosbravoa/paint9x/issues
 confinement: strict
 icon: snap/gui/paint9x.png
 
