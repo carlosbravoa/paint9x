@@ -293,7 +293,7 @@ class Win98Window(Gtk.Window):
 
     def __init__(self, title="", buttons=("min", "max", "close"), icon=True, **kw):
         super().__init__(**kw)
-        self.get_style_context().add_class("paint98")
+        self.get_style_context().add_class("paint9x")
         hidden = Gtk.Box()
         hidden.get_style_context().add_class("win98-hidden-titlebar")
         hidden.show()

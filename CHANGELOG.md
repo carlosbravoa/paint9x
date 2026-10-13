@@ -5,6 +5,14 @@ next snap release.
 
 ## Unreleased
 
+## 1.0.6
+
+- Paint98 is now called Paint9X: the window titles, menus, dialogs, About
+  box, launcher, icon and store banner all use the new name. This is the
+  last release of the `paint98` snap; it continues as `paint9x`.
+  Settings, recovery copies and stickers in the old Paint98 folders are
+  moved over automatically.
+
 ## 1.0.5
 
 - Fixed: Stretch/Skew at exactly 45 degrees (and some other angles) lost

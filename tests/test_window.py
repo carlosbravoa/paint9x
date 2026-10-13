@@ -15,9 +15,9 @@ from .helpers import (BLACK, BLUE, GREEN, RED, WHITE, WindowTestCase, applicatio
 
 from gi.repository import Gdk  # noqa: E402
 
-from paint98 import dialogs, imageops, toolbox, window  # noqa: E402
-from paint98.colorbox import ColorBox  # noqa: E402
-from paint98.state import TOOLS  # noqa: E402
+from paint9x import dialogs, imageops, toolbox, window  # noqa: E402
+from paint9x.colorbox import ColorBox  # noqa: E402
+from paint9x.state import TOOLS  # noqa: E402
 
 
 def answer(cls, result=None, ok=True, **attrs):
@@ -244,7 +244,7 @@ class FileTests(WindowTestCase):
             self.win.items["save_as"].activate()
         self.assertTrue(os.path.exists(p))
         self.assertFalse(self.doc.modified)
-        self.assertEqual(self.win.get_title(), "pic.png - Paint98")
+        self.assertEqual(self.win.get_title(), "pic.png - Paint9X")
         self.assertEqual(self.win.settings["recent"][0], p)
         # Save writes to the same file without asking.
         paint_rect(self.doc.surface, 0, 0, 10, 10, BLUE)
@@ -279,7 +279,7 @@ class FileTests(WindowTestCase):
             self.win.items["open"].activate()
         self.assertEqual((self.doc.width, self.doc.height), (30, 20))
         self.assertEqual(self.px(5, 5), GREEN)
-        self.assertEqual(self.win.get_title(), "in.bmp - Paint98")
+        self.assertEqual(self.win.get_title(), "in.bmp - Paint9X")
 
     def test_open_bad_file_reports_and_keeps_picture(self):
         p = self.path("bad.png")

@@ -1,4 +1,4 @@
-# Paint98
+# Paint9X
 
 [![Get it from the Snap Store](https://snapcraft.io/en/dark/install.svg)](https://snapcraft.io/paint98)
 
@@ -8,10 +8,10 @@ its options box, the 28-colour palette, the same menus, shortcuts, status bar
 help text and dialogs.
 
 It is written in Python with GTK 3 and cairo. All the chrome is drawn by the
-app (`paint98/data/win98.css` plus hand-made pixel art in
-`paint98/pixmaps.py`), so it looks the same whatever GTK theme you use.
+app (`paint9x/data/win98.css` plus hand-made pixel art in
+`paint9x/pixmaps.py`), so it looks the same whatever GTK theme you use.
 
-![Paint98](docs/screenshots/banner.png)
+![Paint9X](docs/screenshots/banner.png)
 
 ![A landscape painted with Fun Colors and stickers](docs/screenshots/01-landscape.png)
 
@@ -49,7 +49,7 @@ Needs Python 3, PyGObject, pycairo and GTK 3:
 
 ```sh
 sudo apt install python3-gi python3-gi-cairo gir1.2-gtk-3.0
-./bin/paint98 [picture.png]
+./bin/paint9x [picture.png]
 ```
 
 ## Tests
@@ -62,7 +62,7 @@ python3 -m unittest -v tests.test_tools.FillTests   # one group
 xvfb-run -a python3 -m unittest   # on a machine without a display
 ```
 
-Most tests open a real (off-screen) Paint98 window and drive the tools with
+Most tests open a real (off-screen) Paint9X window and drive the tools with
 simulated mouse input, then check the pixels and that Undo/Redo restore the
 picture. Without a display those are skipped and only the file and image
 tests run. Tests use a throw-away settings folder, so they never touch your

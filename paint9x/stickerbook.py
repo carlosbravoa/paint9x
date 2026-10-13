@@ -199,7 +199,7 @@ class StickerBook(Win98Window):
         try:
             sid = stickers.save_user_sticker(surf)
         except (OSError, cairo.Error) as e:
-            message_box(self, "Sticker Book", "Paint98 cannot save the sticker.\n\n%s" % e, ("OK",))
+            message_box(self, "Sticker Book", "Paint9X cannot save the sticker.\n\n%s" % e, ("OK",))
             return
         if sid is None:
             message_box(self, "Sticker Book", "The selection is empty.", ("OK",), icon="info")

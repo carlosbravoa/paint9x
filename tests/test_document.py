@@ -9,8 +9,8 @@ from .helpers import BLUE, RED, WHITE, count_color, paint_rect, pixel, surface_b
 
 from gi.repository import GLib  # noqa: E402
 
-from paint98 import document, imageops  # noqa: E402
-from paint98.document import Document  # noqa: E402
+from paint9x import document, imageops  # noqa: E402
+from paint9x.document import Document  # noqa: E402
 
 
 class SignalLog:

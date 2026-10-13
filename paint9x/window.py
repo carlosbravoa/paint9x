@@ -1,4 +1,4 @@
-"""The main Paint98 window: menus, tool box, colour box, canvas and status bar."""
+"""The main Paint9X window: menus, tool box, colour box, canvas and status bar."""
 
 import json
 import os
@@ -96,11 +96,11 @@ def clean_settings(cfg):
 
 
 def config_path():
-    return os.path.join(GLib.get_user_config_dir(), "paint98", "settings.json")
+    return os.path.join(GLib.get_user_config_dir(), "paint9x", "settings.json")
 
 
 def wallpaper_dir():
-    base = os.environ.get("SNAP_USER_COMMON") or os.path.join(GLib.get_user_data_dir(), "paint98")
+    base = os.environ.get("SNAP_USER_COMMON") or os.path.join(GLib.get_user_data_dir(), "paint9x")
     path = os.path.join(base, "wallpaper")
     os.makedirs(path, exist_ok=True)
     return path
@@ -214,7 +214,7 @@ class ThumbnailWindow(Win98Window):
 
 
 class PrintPreviewWindow(Win98Window):
-    """Print Preview drawn by Paint98 itself (the system previewer is not
+    """Print Preview drawn by Paint9X itself (the system previewer is not
     available to a confined snap): the page with the picture as it will be
     printed, plus Print and Close buttons."""
 
@@ -303,7 +303,7 @@ class BitmapViewer(Gtk.Window):
 
 class MainWindow(Win98Window):
     def __init__(self, app, path=None):
-        super().__init__("untitled - Paint98", application=app)
+        super().__init__("untitled - Paint9X", application=app)
         self.app = app
         self.state = PaintState()
         self.doc = Document(640, 480)
@@ -513,7 +513,7 @@ class MainWindow(Win98Window):
             ("wall_center", "Set As Wa_llpaper (Centered)", lambda: self.on_wallpaper("centered"), None,
              "Centers this bitmap as the desktop wallpaper."),
             ("recent_sep", None),
-            ("exit", "E_xit", self.close, "<Alt>F4", "Quits Paint98."),
+            ("exit", "E_xit", self.close, "<Alt>F4", "Quits Paint9X."),
         ])
         self.add_menu(mb, "_Edit", [
             ("undo", "_Undo", self.canvas_undo, "<Control>z", "Undoes the last action."),
@@ -598,7 +598,7 @@ class MainWindow(Win98Window):
             ("help_topics", "_Help Topics", lambda: dialogs.help_topics(self), None,
              "Displays Help for the current task or command."),
             None,
-            ("about", "_About Paint98", lambda: dialogs.about(self, __version__), None,
+            ("about", "_About Paint9X", lambda: dialogs.about(self, __version__), None,
              "Displays program information, version number, and copyright."),
         ])
         self.items["send"].set_sensitive(False)
@@ -650,7 +650,7 @@ class MainWindow(Win98Window):
     def _style_popup(self, menu):
         top = menu.get_toplevel()
         if top is not None:
-            top.get_style_context().add_class("paint98-popup")
+            top.get_style_context().add_class("paint9x-popup")
             win98.keep_mnemonics_visible(top)
 
     _updating = False
@@ -859,7 +859,7 @@ class MainWindow(Win98Window):
         self.size_label.set_text("%dx%d" % (w, h) if valid else "")
 
     def update_title(self):
-        self.set_title("%s - Paint98" % display_path(self.doc.display_name))
+        self.set_title("%s - Paint9X" % display_path(self.doc.display_name))
 
     def update_textbar(self):
         show = self.canvas.text_active() and self.settings.get("textbar", True)
@@ -933,7 +933,7 @@ class MainWindow(Win98Window):
         pending = self.canvas.has_pending_work()
         if not self.doc.modified and not pending:
             return True
-        res = message_box(self, "Paint98", "Save changes to %s?" % self.doc.display_name,
+        res = message_box(self, "Paint9X", "Save changes to %s?" % self.doc.display_name,
                           ("Yes", "No", "Cancel"))
         if res == 0:
             self.canvas.commit_all()
@@ -964,7 +964,7 @@ class MainWindow(Win98Window):
             self.canvas.discard_pending()
             self.doc.recover(png_path, filename)
         except Exception as e:  # a damaged recovery file must not stop start-up
-            self.error("Paint98 could not recover the picture.\n\n%s" % e)
+            self.error("Paint9X could not recover the picture.\n\n%s" % e)
             return False
         self.autosaver.save_now()
         return True
@@ -976,7 +976,7 @@ class MainWindow(Win98Window):
         return False
 
     def error(self, text):
-        message_box(self, "Paint98", text, ("OK",))
+        message_box(self, "Paint9X", text, ("OK",))
 
     # -- file ------------------------------------------------------------------------
     def file_dialog(self, title, action, name=None, filters=IMAGE_FILTERS, all_images=True):
@@ -1049,11 +1049,11 @@ class MainWindow(Win98Window):
         try:
             self.doc.load(path)
         except imageops.TooBig as e:
-            self.error("Paint98 cannot open %s.\n\n%s" % (display_path(path), e))
+            self.error("Paint9X cannot open %s.\n\n%s" % (display_path(path), e))
             return False
         except (GLib.Error, cairo.Error, MemoryError) as e:
             msg = getattr(e, "message", None) or str(e)
-            self.error("Paint98 cannot read this file.\n%s\nThis is not a valid bitmap file, or its "
+            self.error("Paint9X cannot read this file.\n%s\nThis is not a valid bitmap file, or its "
                        "format is not currently supported.\n\n%s" % (display_path(path), msg))
             self.forget_recent(path)
             return False
@@ -1069,11 +1069,11 @@ class MainWindow(Win98Window):
         return self.save_to(self.doc.filename)
 
     def check_save_name(self, path):
-        """Refuse names whose extension Paint98 can't write (e.g. .gif),
+        """Refuse names whose extension Paint9X can't write (e.g. .gif),
         instead of putting PNG data under that name."""
         ext = os.path.splitext(path)[1]
         if ext and not Document.format_for(path):
-            self.error("Paint98 cannot save pictures as %s files.\n\n"
+            self.error("Paint9X cannot save pictures as %s files.\n\n"
                        "Please choose PNG, BMP, JPEG or TIFF." % display_path(ext))
             return False
         return True
@@ -1105,7 +1105,7 @@ class MainWindow(Win98Window):
         try:
             self.doc.save(path, fmt=self.save_format(path))
         except (GLib.Error, OSError) as e:
-            self.error("Paint98 cannot save this file.\n\n%s" % (getattr(e, "message", None) or e))
+            self.error("Paint9X cannot save this file.\n\n%s" % (getattr(e, "message", None) or e))
             return False
         self.add_recent(path)
         if not self.canvas.has_pending_work():
@@ -1163,7 +1163,7 @@ class MainWindow(Win98Window):
         source = Gio.SettingsSchemaSource.get_default()
         schema = source.lookup("org.gnome.desktop.background", True) if source else None
         if schema is None:
-            self.error("Paint98 cannot set the wallpaper on this desktop.")
+            self.error("Paint9X cannot set the wallpaper on this desktop.")
             return
         folder = wallpaper_dir()
         for old in os.listdir(folder):
@@ -1176,7 +1176,7 @@ class MainWindow(Win98Window):
         try:
             self.doc.save(path, surface=self.doc.surface)
         except GLib.Error as e:
-            self.error("Paint98 cannot save the wallpaper.\n\n%s" % e.message)
+            self.error("Paint9X cannot save the wallpaper.\n\n%s" % e.message)
             return
         uri = GLib.filename_to_uri(path, None)
         settings = Gio.Settings.new("org.gnome.desktop.background")
@@ -1228,12 +1228,12 @@ class MainWindow(Win98Window):
         try:
             imageops.check_size(pb.get_width(), pb.get_height())
         except imageops.TooBig as e:
-            self.error("Paint98 cannot paste this picture.\n\n%s" % e)
+            self.error("Paint9X cannot paste this picture.\n\n%s" % e)
             return
         surf = pixbuf_to_surface(pb, self.state.bg)
         w, h = surf.get_width(), surf.get_height()
         if w > self.doc.width or h > self.doc.height:
-            res = message_box(self, "Paint98",
+            res = message_box(self, "Paint9X",
                               "The image in the clipboard is larger than the bitmap.\n"
                               "Would you like the bitmap enlarged?", ("Yes", "No", "Cancel"))
             if res == 0:
@@ -1267,7 +1267,7 @@ class MainWindow(Win98Window):
             try:
                 self.doc.save(path, surface=surf, fmt=self.save_format(path))
             except (GLib.Error, OSError) as e:
-                self.error("Paint98 cannot save this file.\n\n%s" % (getattr(e, "message", None) or e))
+                self.error("Paint9X cannot save this file.\n\n%s" % (getattr(e, "message", None) or e))
 
     def on_paste_from(self):
         path = self.file_dialog("Paste From", Gtk.FileChooserAction.OPEN)
@@ -1278,10 +1278,10 @@ class MainWindow(Win98Window):
             imageops.check_size(w, h)
             pb = GdkPixbuf.Pixbuf.new_from_file(path)
         except imageops.TooBig as e:
-            self.error("Paint98 cannot paste this picture.\n\n%s" % e)
+            self.error("Paint9X cannot paste this picture.\n\n%s" % e)
             return
         except (GLib.Error, TypeError) as e:
-            self.error("Paint98 cannot read this file.\n\n%s" % (getattr(e, "message", None) or e))
+            self.error("Paint9X cannot read this file.\n\n%s" % (getattr(e, "message", None) or e))
             return
         self.float_pixbuf(pb)
 
@@ -1324,7 +1324,7 @@ class MainWindow(Win98Window):
 
         def done(error):
             if error is not None:
-                message_box(parent, "Paint98", "Paint98 cannot save the replay.\n\n%s" % error, ("OK",))
+                message_box(parent, "Paint9X", "Paint9X cannot save the replay.\n\n%s" % error, ("OK",))
 
         export_gif(parent, frames, path, done)
 
@@ -1342,7 +1342,7 @@ class MainWindow(Win98Window):
         except imageops.TooBig as e:
             self.error(str(e))
         except (cairo.Error, MemoryError) as e:
-            self.error("Paint98 does not have enough memory for this picture.\n\n%s" % e)
+            self.error("Paint9X does not have enough memory for this picture.\n\n%s" % e)
         return False
 
     def apply_transform(self, fn, label="Change"):
@@ -1420,7 +1420,7 @@ class MainWindow(Win98Window):
         try:
             sid = stickers.save_user_sticker(surf)
         except (OSError, cairo.Error) as e:
-            self.error("Paint98 cannot save the sticker.\n\n%s" % e)
+            self.error("Paint9X cannot save the sticker.\n\n%s" % e)
             return
         if sid is None:
             return
@@ -1465,7 +1465,7 @@ class MainWindow(Win98Window):
         if not self.guard(self.doc.resize, w, h, self.state.bg):
             return
         if not colors and not self.doc.monochrome:
-            res = message_box(self, "Paint98", "Converting to black-and-white will lose color "
+            res = message_box(self, "Paint9X", "Converting to black-and-white will lose color "
                               "information. Do you want to continue?", ("Yes", "No"))
             if res == 0:
                 def fn(s):
@@ -1520,7 +1520,7 @@ class MainWindow(Win98Window):
         try:
             self.state.set_palette(read_pal(path))
         except (OSError, ValueError, struct.error):
-            self.error("Paint98 cannot read this palette file.")
+            self.error("Paint9X cannot read this palette file.")
 
     def on_save_colors(self):
         path = self.file_dialog("Save Colors", Gtk.FileChooserAction.SAVE, "untitled.pal",
@@ -1530,4 +1530,4 @@ class MainWindow(Win98Window):
         try:
             write_pal(path, [solid(c) for c in self.state.palette])
         except OSError as e:
-            self.error("Paint98 cannot save this palette file.\n\n%s" % e)
+            self.error("Paint9X cannot save this palette file.\n\n%s" % e)

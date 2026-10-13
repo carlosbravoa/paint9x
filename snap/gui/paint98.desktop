@@ -1,12 +1,12 @@
 [Desktop Entry]
 Type=Application
-Name=Paint98
+Name=Paint9X
 GenericName=Image Editor
 Comment=Create and edit drawings, the classic way
 Exec=paint98 %f
-Icon=${SNAP}/meta/gui/paint98.png
+Icon=${SNAP}/meta/gui/paint9x.png
 Terminal=false
 Categories=Graphics;2DGraphics;RasterGraphics;GTK;
 MimeType=image/png;image/bmp;image/jpeg;image/tiff;image/gif;
 Keywords=draw;paint;mspaint;bitmap;pixel;
-StartupWMClass=paint98
+StartupWMClass=paint9x

@@ -12,7 +12,7 @@ import os
 import sys
 import tempfile
 
-tmp = tempfile.mkdtemp(prefix="paint98-shots-")
+tmp = tempfile.mkdtemp(prefix="paint9x-shots-")
 os.environ["XDG_CONFIG_HOME"] = os.path.join(tmp, "config")
 os.environ["XDG_DATA_HOME"] = os.path.join(tmp, "data")
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
@@ -25,8 +25,8 @@ from gi.repository import Gdk, GLib, Gtk  # noqa: E402
 
 import cairo  # noqa: E402
 
-from paint98 import app as appmod  # noqa: E402
-from paint98.funpaints import CRAYONS, FUN_PAINTS  # noqa: E402
+from paint9x import app as appmod  # noqa: E402
+from paint9x.funpaints import CRAYONS, FUN_PAINTS  # noqa: E402
 
 OUT = sys.argv[1]
 os.makedirs(OUT, exist_ok=True)
@@ -127,7 +127,7 @@ def landscape(win):
     t.press(24, 14, 1, 0)
     t.drag(330, 60, 0)
     t.release(330, 60, 1, 0)
-    t.insert("Hello, Paint98!")
+    t.insert("Hello, Paint9X!")
     t.commit()
     st.set_option("transparent", False)
     st.set_fg((0, 0, 0))
@@ -206,7 +206,7 @@ def run(app):
     menu_img = grab(sub.get_toplevel())
     menu_pos = image_item.translate_coordinates(win, 0, 0)
     sub.popdown()
-    from paint98 import dialogs
+    from paint9x import dialogs
     dlg = dialogs.EditColorsDialog(win, (255, 128, 64), custom=list(CRAYONS) + [(255, 255, 255)] * 14)
     dlg.show_all()
     pump(600)
@@ -218,7 +218,7 @@ def run(app):
 
     # 5. Replay window.
     frames = win.recorder.snapshot()
-    from paint98.replay import ReplayWindow
+    from paint9x.replay import ReplayWindow
     player = ReplayWindow(win, frames, lambda w: None)
     player.show_all()
     pump(300)

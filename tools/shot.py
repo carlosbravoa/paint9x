@@ -8,8 +8,8 @@ before the snapshot is taken, so it can drive tools programmatically.
 """
 
 import os
-os.environ.setdefault("XDG_CONFIG_HOME", os.path.join(os.environ.get("TMPDIR", "/tmp"), "paint98-shot-config"))
-os.environ.setdefault("XDG_DATA_HOME", os.path.join(os.environ.get("TMPDIR", "/tmp"), "paint98-shot-data"))
+os.environ.setdefault("XDG_CONFIG_HOME", os.path.join(os.environ.get("TMPDIR", "/tmp"), "paint9x-shot-config"))
+os.environ.setdefault("XDG_DATA_HOME", os.path.join(os.environ.get("TMPDIR", "/tmp"), "paint9x-shot-data"))
 import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
@@ -21,7 +21,7 @@ from gi.repository import GLib, Gtk  # noqa: E402
 
 import cairo  # noqa: E402
 
-from paint98 import app as appmod  # noqa: E402
+from paint9x import app as appmod  # noqa: E402
 
 
 def main():
@@ -32,10 +32,10 @@ def main():
     appmod.load_css()
     application = appmod.PaintApp()
     application.register(None)
-    from paint98.window import MainWindow
+    from paint9x.window import MainWindow
     win = MainWindow(application)
     off = Gtk.OffscreenWindow()
-    off.get_style_context().add_class("paint98")
+    off.get_style_context().add_class("paint9x")
     frame = win.frame
     win.remove(frame)
     off.add(frame)
@@ -59,7 +59,7 @@ def main():
                 f = dlg.frame
                 dlg.remove(f)
                 off2 = Gtk.OffscreenWindow()
-                off2.get_style_context().add_class("paint98")
+                off2.get_style_context().add_class("paint9x")
                 off2.add(f)
                 off2.show_all()
                 target["frame"] = f

@@ -16,7 +16,7 @@ gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
 from gi.repository import Gdk, Gtk  # noqa: E402
 
-from paint98 import imageops  # noqa: E402
+from paint9x import imageops  # noqa: E402
 
 HAVE_DISPLAY = Gtk.init_check(sys.argv[:1])[0]
 needs_display = unittest.skipUnless(HAVE_DISPLAY, "needs a display (try xvfb-run)")
@@ -84,7 +84,7 @@ _app = None
 def application():
     global _app
     if _app is None:
-        from paint98 import app as appmod
+        from paint9x import app as appmod
         appmod.load_css()
         _app = appmod.PaintApp()
         _app.register(None)
@@ -100,11 +100,11 @@ class WindowTestCase(unittest.TestCase):
     def setUp(self):
         if not HAVE_DISPLAY:
             self.skipTest("needs a display (try xvfb-run)")
-        from paint98.window import MainWindow
+        from paint9x.window import MainWindow
         del callback_errors[:]
         self.win = MainWindow(application())
         self.offscreen = Gtk.OffscreenWindow()
-        self.offscreen.get_style_context().add_class("paint98")
+        self.offscreen.get_style_context().add_class("paint9x")
         frame = self.win.frame
         self.win.remove(frame)
         self.offscreen.add(frame)

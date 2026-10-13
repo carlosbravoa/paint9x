@@ -5,7 +5,7 @@ import unittest
 from . import helpers  # noqa: F401  (isolated home)
 from .helpers import BLACK, BLUE, GREEN, RED, WHITE, count_color, filled, paint_rect, pixel, surface_bytes
 
-from paint98 import imageops
+from paint9x import imageops
 
 
 def mask_count(mask):

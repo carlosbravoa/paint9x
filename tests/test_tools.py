@@ -9,8 +9,8 @@ import unittest
 from .helpers import (BLACK, BLUE, GREEN, RED, SHIFT, WHITE, CTRL, WindowTestCase, count_color,
                       flush_events, paint_rect)
 
-from paint98 import funpaints, imageops  # noqa: E402
-from paint98.state import TOOLS  # noqa: E402
+from paint9x import funpaints, imageops  # noqa: E402
+from paint9x.state import TOOLS  # noqa: E402
 
 
 class FreehandTests(WindowTestCase):

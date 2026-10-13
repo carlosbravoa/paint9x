@@ -1,4 +1,4 @@
-"""Paint98 test suite (stdlib unittest).
+"""Paint9X test suite (stdlib unittest).
 
 Run from the project root:  python3 -m unittest -v
 Window tests need a display; without one they are skipped. On a headless
@@ -14,7 +14,7 @@ import os
 import shutil
 import tempfile
 
-_HOME = tempfile.mkdtemp(prefix="paint98-tests-")
+_HOME = tempfile.mkdtemp(prefix="paint9x-tests-")
 atexit.register(shutil.rmtree, _HOME, ignore_errors=True)
 for _var, _sub in (("XDG_CONFIG_HOME", "config"), ("XDG_DATA_HOME", "data"),
                    ("XDG_CACHE_HOME", "cache"), ("XDG_STATE_HOME", "state")):

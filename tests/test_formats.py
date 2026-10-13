@@ -4,6 +4,7 @@ crash-recovery copies."""
 import json
 import os
 import random
+import shutil
 import struct
 import tempfile
 import unittest
@@ -13,8 +14,11 @@ from .helpers import BLUE, GREEN, RED, WHITE, filled, paint_rect, pixel
 
 from gi.repository import GdkPixbuf  # noqa: E402
 
-from paint98 import autosave, gif, replay, symmetry  # noqa: E402
-from paint98.window import clean_settings, read_pal, write_pal  # noqa: E402
+from gi.repository import GLib  # noqa: E402
+
+from paint9x import autosave, gif, replay, symmetry  # noqa: E402
+from paint9x.app import migrate_old_dirs  # noqa: E402
+from paint9x.window import clean_settings, read_pal, write_pal  # noqa: E402
 
 
 def lzw_decode(data, min_size=8):
@@ -265,6 +269,27 @@ class SymmetryTests(unittest.TestCase):
 
     def test_every_mode_has_a_hint(self):
         self.assertEqual(set(symmetry.HINTS), {mode for mode, _, _ in symmetry.MODES})
+
+
+
+class OldNameTest(unittest.TestCase):
+    """Folders left by Paint98 are taken over by Paint9X."""
+
+    def test_old_folders_are_renamed(self):
+        for base in (GLib.get_user_config_dir(), GLib.get_user_data_dir()):
+            old, new = os.path.join(base, "paint98"), os.path.join(base, "paint9x")
+            if os.path.exists(new):
+                os.rename(new, new + ".bak")
+                self.addCleanup(os.rename, new + ".bak", new)
+            os.makedirs(old)
+            with open(os.path.join(old, "kept.txt"), "w") as f:
+                f.write("hi")
+            self.addCleanup(shutil.rmtree, new, ignore_errors=True)
+        migrate_old_dirs()
+        for base in (GLib.get_user_config_dir(), GLib.get_user_data_dir()):
+            self.assertFalse(os.path.exists(os.path.join(base, "paint98")))
+            with open(os.path.join(base, "paint9x", "kept.txt")) as f:
+                self.assertEqual(f.read(), "hi")
 
 
 if __name__ == "__main__":

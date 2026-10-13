@@ -9,8 +9,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import cairo  # noqa: E402
 
-from paint98 import pixmaps  # noqa: E402
-from paint98.funpaints import RAINBOW  # noqa: E402
+from paint9x import pixmaps  # noqa: E402
+from paint9x.funpaints import RAINBOW  # noqa: E402
 
 W, H = 1218, 406
 s = cairo.ImageSurface(cairo.FORMAT_RGB24, W, H)
@@ -34,7 +34,7 @@ cr.set_font_size(120)
 for dx, col in ((6, (0, 0, 0)), (0, (1, 1, 1))):
     cr.move_to(330 + dx, 215 + dx)
     cr.set_source_rgb(*col)
-    cr.show_text("Paint98")
+    cr.show_text("Paint9X")
 cr.set_font_size(32)
 for dx, col in ((3, (0, 0, 0)), (0, (1, 1, 0.85))):
     cr.move_to(336 + dx, 282 + dx)

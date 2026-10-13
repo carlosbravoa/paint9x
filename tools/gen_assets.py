@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the small PNG assets referenced by paint98/data/win98.css.
+"""Generate the small PNG assets referenced by paint9x/data/win98.css.
 
 Run from the repository root:  python3 tools/gen_assets.py
 """
@@ -9,9 +9,9 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from paint98.pixmaps import make_surface  # noqa: E402
+from paint9x.pixmaps import make_surface  # noqa: E402
 
-OUT = os.path.join(os.path.dirname(__file__), "..", "paint98", "data")
+OUT = os.path.join(os.path.dirname(__file__), "..", "paint9x", "data")
 
 CHECK = [
     "......k",
@@ -179,12 +179,12 @@ def main():
             save("radio%s.png" % suffix, radio(checked, disabled))
             save("check%s.png" % suffix, checkbox(checked, disabled))
     # Application icon: the 16x16 pixel art blown up without smoothing.
-    from paint98.pixmaps import APP_ICON
+    from paint9x.pixmaps import APP_ICON
     root = os.path.join(os.path.dirname(__file__), "..")
     icon = make_surface(APP_ICON, scale=16)
-    icon.write_to_png(os.path.join(root, "snap", "gui", "paint98.png"))
+    icon.write_to_png(os.path.join(root, "snap", "gui", "paint9x.png"))
     os.makedirs(os.path.join(root, "data", "icons"), exist_ok=True)
-    icon.write_to_png(os.path.join(root, "data", "icons", "com.cbravo.paint98.png"))
+    icon.write_to_png(os.path.join(root, "data", "icons", "com.cbravo.paint9x.png"))
 
 
 if __name__ == "__main__":

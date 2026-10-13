@@ -22,7 +22,7 @@ _counter = itertools.count(1)
 
 
 def recovery_dir():
-    base = os.environ.get("SNAP_USER_COMMON") or os.path.join(GLib.get_user_data_dir(), "paint98")
+    base = os.environ.get("SNAP_USER_COMMON") or os.path.join(GLib.get_user_data_dir(), "paint9x")
     path = os.path.join(base, "recovery")
     os.makedirs(path, exist_ok=True)
     return path

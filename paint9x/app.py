@@ -33,11 +33,23 @@ def load_css():
             pass
 
 
+def migrate_old_dirs():
+    """Paint9X used to be called Paint98: carry its settings, recovery
+    copies and stickers over to the new folder names."""
+    for base in (GLib.get_user_config_dir(), GLib.get_user_data_dir()):
+        old, new = os.path.join(base, "paint98"), os.path.join(base, "paint9x")
+        if os.path.isdir(old) and not os.path.exists(new):
+            try:
+                os.rename(old, new)
+            except OSError:
+                pass
+
+
 class PaintApp(Gtk.Application):
     def __init__(self):
         super().__init__(application_id=APP_ID,
                          flags=Gio.ApplicationFlags.HANDLES_OPEN | Gio.ApplicationFlags.NON_UNIQUE)
-        GLib.set_application_name("Paint98")
+        GLib.set_application_name("Paint9X")
 
     def do_startup(self):
         Gtk.Application.do_startup(self)
@@ -66,9 +78,9 @@ class PaintApp(Gtk.Application):
             when = info.get("time")
             when = time.strftime("%d/%m/%Y %H:%M", time.localtime(when)) \
                 if isinstance(when, (int, float)) else "an earlier session"
-            res = message_box(win, "Paint98",
-                              "Paint98 found an unsaved picture (%s) from %s.\n"
-                              "It was not saved before Paint98 closed.\n\n"
+            res = message_box(win, "Paint9X",
+                              "Paint9X found an unsaved picture (%s) from %s.\n"
+                              "It was not saved before Paint9X closed.\n\n"
                               "Do you want to recover it?" % (name, when),
                               ("Yes", "No"), icon="info")
             if res == 0:
@@ -88,5 +100,6 @@ class PaintApp(Gtk.Application):
 
 
 def main(argv=None):
+    migrate_old_dirs()
     app = PaintApp()
     return app.run(argv if argv is not None else sys.argv)

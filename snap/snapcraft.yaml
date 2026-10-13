@@ -1,10 +1,12 @@
 name: paint98
 base: core24
-version: '1.0.5'
-title: Paint98
+version: '1.0.6'
+title: Paint9X
 summary: The classic paint program, pixel for pixel, on the GNOME desktop
 description: |
-  Paint98 brings back the look and feel of the classic Windows 98 paint program on the GNOME desktop: the grey 3D chrome, the sixteen-tool tool box, the 28-colour palette, the same menus, shortcuts and dialogs. It is drawn pixel for pixel, so it looks the same whatever theme you use.
+  Paint98 is now Paint9X. This is the last update under the name "paint98": install the new snap with "sudo snap install paint9x" to keep getting updates.
+
+  Paint9X brings back the look and feel of the classic Windows 98 paint program on the GNOME desktop: the grey 3D chrome, the sixteen-tool tool box, the 28-colour palette, the same menus, shortcuts and dialogs. It is drawn pixel for pixel, so it looks the same whatever theme you use.
 
   Under the classic surface there are modern extras that kids and grown-ups will love:
 
@@ -26,7 +28,7 @@ description: |
   * Opens and saves PNG, BMP, JPEG and TIFF; copy and paste with other apps; print and print preview
   * Set your picture as the desktop wallpaper, tiled or centred
 
-  Paint98 is free software under the MIT license. It is not affiliated with Microsoft.
+  Paint9X is free software under the MIT license. It is not affiliated with Microsoft.
 grade: stable
 license: MIT
 website: https://github.com/carlosbravoa/paint98
@@ -34,7 +36,7 @@ source-code: https://github.com/carlosbravoa/paint98
 issues: https://github.com/carlosbravoa/paint98/issues
 contact: https://github.com/carlosbravoa/paint98/issues
 confinement: strict
-icon: snap/gui/paint98.png
+icon: snap/gui/paint9x.png
 
 platforms:
   amd64:
@@ -42,7 +44,7 @@ platforms:
 
 apps:
   paint98:
-    command: bin/paint98
+    command: bin/paint9x
     extensions: [gnome]
     plugs:
       - home
@@ -50,12 +52,12 @@ apps:
       - cups
 
 parts:
-  paint98:
+  paint9x:
     plugin: nil
     source: .
     override-build: |
       craftctl default
-      install -d "$CRAFT_PART_INSTALL/lib/paint98"
-      cp -r paint98 "$CRAFT_PART_INSTALL/lib/paint98/"
-      find "$CRAFT_PART_INSTALL/lib/paint98" -name __pycache__ -prune -exec rm -rf {} +
-      install -Dm755 bin/paint98 "$CRAFT_PART_INSTALL/bin/paint98"
+      install -d "$CRAFT_PART_INSTALL/lib/paint9x"
+      cp -r paint9x "$CRAFT_PART_INSTALL/lib/paint9x/"
+      find "$CRAFT_PART_INSTALL/lib/paint9x" -name __pycache__ -prune -exec rm -rf {} +
+      install -Dm755 bin/paint9x "$CRAFT_PART_INSTALL/bin/paint9x"

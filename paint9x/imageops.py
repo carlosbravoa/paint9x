@@ -46,7 +46,7 @@ def set_rgb(cr, rgb):
 _B, _G, _R, _A = (0, 1, 2, 3) if sys.byteorder == "little" else (3, 2, 1, 0)
 _ONE_TO_FF = bytes([0, 255] + [255] * 254)
 
-# Largest picture Paint98 will create (cairo's hard limit is 32767 a side).
+# Largest picture Paint9X will create (cairo's hard limit is 32767 a side).
 MAX_SIDE = 16000
 MAX_PIXELS = 80_000_000
 

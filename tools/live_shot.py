@@ -15,7 +15,7 @@ gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
 from gi.repository import Gdk, GLib, Gtk  # noqa: E402
 
-from paint98 import app as appmod  # noqa: E402
+from paint9x import app as appmod  # noqa: E402
 
 out = sys.argv[1]
 menu_index = int(sys.argv[2]) if len(sys.argv) > 2 else None
