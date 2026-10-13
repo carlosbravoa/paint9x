@@ -358,6 +358,48 @@ class SettingsTests(WindowTestCase):
             os.remove(window.config_path())
 
 
+class MoveNoticeTests(WindowTestCase):
+    """Users of the old "paint98" snap are told to install "paint9x"."""
+
+    def notice(self, snap_name, answer):
+        from paint9x import app as appmod
+        shown = []
+
+        def fake_box(parent, title, text, buttons, **kw):
+            shown.append(text)
+            return answer
+        with mock.patch.dict(os.environ, {"SNAP_NAME": snap_name}), \
+                mock.patch("paint9x.win98.message_box", fake_box), \
+                mock.patch.object(appmod, "open_store_page") as store, \
+                mock.patch.object(self.win, "save_settings"):
+            application().offer_new_snap(self.win)
+        return shown, store
+
+    def test_not_shown_outside_the_old_snap(self):
+        shown, store = self.notice("paint9x", 0)
+        self.assertEqual(shown, [])
+
+    def test_get_opens_the_store(self):
+        shown, store = self.notice("paint98", 0)
+        self.assertEqual(len(shown), 1)
+        self.assertIn("sudo snap install paint9x", shown[0])
+        store.assert_called_once_with(self.win)
+        self.assertNotIn("hide_move_notice", self.win.settings)
+
+    def test_later_asks_again(self):
+        self.notice("paint98", 1)
+        shown, store = self.notice("paint98", 1)
+        self.assertEqual(len(shown), 1)
+        store.assert_not_called()
+
+    def test_dont_ask_again(self):
+        self.notice("paint98", 2)
+        self.assertTrue(self.win.settings["hide_move_notice"])
+        self.assertTrue(window.clean_settings(self.win.settings)["hide_move_notice"])
+        shown, store = self.notice("paint98", 0)
+        self.assertEqual(shown, [])
+
+
 class ToolBoxTests(WindowTestCase):
     def button_centre(self, item):
         i = toolbox.ITEMS.index(item)

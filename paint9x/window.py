@@ -51,7 +51,7 @@ def in_document_portal(path):
     return bool(runtime) and path.startswith(os.path.join(runtime, "doc") + os.sep)
 
 
-BOOL_KEYS = ("toolbox", "colorbox", "statusbar", "settingsbar", "textbar")
+BOOL_KEYS = ("toolbox", "colorbox", "statusbar", "settingsbar", "textbar", "hide_move_notice")
 STR_KEYS = ("palette_mode", "last_plain", "symmetry", "eraser_shape")
 
 

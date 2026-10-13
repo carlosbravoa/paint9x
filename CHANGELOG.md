@@ -12,6 +12,9 @@ next snap release.
   last release of the `paint98` snap; it continues as `paint9x`.
   Settings, recovery copies and stickers in the old Paint98 folders are
   moved over automatically.
+- When started from the old `paint98` snap, Paint9X says it has moved and
+  offers to open the new `paint9x` snap in the App Center ("Get Paint9X",
+  "Later" or "Don't Ask Again").
 
 ## 1.0.5
 

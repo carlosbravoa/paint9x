@@ -45,6 +45,17 @@ def migrate_old_dirs():
                 pass
 
 
+def open_store_page(win):
+    """Show Paint9X in the App Center, or on the web if that can't be opened."""
+    for uri in ("snap://paint9x", "https://snapcraft.io/paint9x"):
+        try:
+            Gtk.show_uri_on_window(win, uri, Gtk.get_current_event_time())
+            return True
+        except GLib.Error:
+            pass
+    return False
+
+
 class PaintApp(Gtk.Application):
     def __init__(self):
         super().__init__(application_id=APP_ID,
@@ -89,7 +100,28 @@ class PaintApp(Gtk.Application):
                 target = win if untouched else self.new_window()
                 target.recover(png, info)
             autosave.discard(sid)
+        self.offer_new_snap(win)
         return False
+
+    def offer_new_snap(self, win):
+        """The "paint98" snap gets no more updates: point its users to "paint9x"."""
+        if os.environ.get("SNAP_NAME") != "paint98" or win.settings.get("hide_move_notice"):
+            return
+        from .win98 import message_box
+        res = message_box(win, "Paint9X",
+                          "Paint98 is now called Paint9X, and this copy will not get any "
+                          "more updates.\n\n"
+                          "To keep getting new features and fixes, install Paint9X from the "
+                          "App Center, or with this command:\n\n"
+                          "    sudo snap install paint9x\n\n"
+                          "Then you can remove this copy with \"sudo snap remove paint98\". "
+                          "Your pictures stay where they are.",
+                          ("Get Paint9X", "Later", "Don't Ask Again"), icon="info")
+        if res == 0:
+            open_store_page(win)
+        elif res == 2:
+            win.settings["hide_move_notice"] = True
+            win.save_settings()
 
     def do_activate(self):
         self.new_window()
