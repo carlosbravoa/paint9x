@@ -1,6 +1,6 @@
 # Paint9X
 
-[![Get it from the Snap Store](https://snapcraft.io/en/dark/install.svg)](https://snapcraft.io/paint98)
+[![Get it from the Snap Store](https://snapcraft.io/en/dark/install.svg)](https://snapcraft.io/paint9x)
 
 A native GNOME paint program that looks and behaves like the classic
 Windows 98 Paint: grey 3D chrome, navy title bar, the 16-tool tool box with
@@ -40,8 +40,12 @@ Ctrl+L and Ctrl+A toggles the colour box.
 ## Install
 
 ```sh
-sudo snap install paint98
+sudo snap install paint9x
 ```
+
+Paint9X used to be called Paint98. The old `paint98` snap gets no more
+updates; if you have it, install `paint9x` and then
+`sudo snap remove paint98`.
 
 ## Running from source
 
@@ -73,13 +77,13 @@ Xvfb on every push (`.github/workflows/tests.yml`).
 
 ```sh
 snapcraft pack
-sudo snap install --dangerous paint98_1.0.0_amd64.snap
-paint98
+sudo snap install --dangerous paint9x_1.0.0_amd64.snap
+paint9x
 ```
 
 The snap uses `core24` with the `gnome` extension. It is strictly confined:
 files are opened through the desktop portal, and the wallpaper is written to
-`~/snap/paint98/common/wallpaper/` and applied through GSettings.
+`~/snap/paint9x/common/wallpaper/` and applied through GSettings.
 
 ## Development helpers
 

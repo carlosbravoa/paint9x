@@ -1,11 +1,9 @@
-name: paint98
+name: paint9x
 base: core24
 version: '1.0.6'
 title: Paint9X
 summary: The classic paint program, pixel for pixel, on the GNOME desktop
 description: |
-  Paint98 is now Paint9X. This is the last update under the name "paint98": install the new snap with "sudo snap install paint9x" to keep getting updates.
-
   Paint9X brings back the look and feel of the classic Windows 98 paint program on the GNOME desktop: the grey 3D chrome, the sixteen-tool tool box, the 28-colour palette, the same menus, shortcuts and dialogs. It is drawn pixel for pixel, so it looks the same whatever theme you use.
 
   Under the classic surface there are modern extras that kids and grown-ups will love:
@@ -28,7 +26,7 @@ description: |
   * Opens and saves PNG, BMP, JPEG and TIFF; copy and paste with other apps; print and print preview
   * Set your picture as the desktop wallpaper, tiled or centred
 
-  Paint9X is free software under the MIT license. It is not affiliated with Microsoft.
+  Paint9X was previously known as Paint98. It is free software under the MIT license. It is not affiliated with Microsoft.
 grade: stable
 license: MIT
 website: https://github.com/carlosbravoa/paint98
@@ -43,7 +41,7 @@ platforms:
   arm64:
 
 apps:
-  paint98:
+  paint9x:
     command: bin/paint9x
     extensions: [gnome]
     plugs:

@@ -5,6 +5,8 @@ next snap release.
 
 ## Unreleased
 
+- First release as the `paint9x` snap (same code as 1.0.6).
+
 ## 1.0.6
 
 - Paint98 is now called Paint9X: the window titles, menus, dialogs, About
